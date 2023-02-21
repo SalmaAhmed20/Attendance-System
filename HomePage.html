@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="./js/Homejs.js" defer></script>
+    <link rel="stylesheet" href="./css/HomePageStyle.css">
+    <title>Home Page</title>
 </head>
+
 <body>
-    
+    <div class="navbar" >
+        <h1 style="display: inline;"> Online Attandance System</h1>
+        <h2 id ="displayDateTime" style="display: inline;"></h2>
+    </div>
+    <div class="regisdiv">
+        <img src="./images/bg2.png">
+        <form class="regisform">
+            <label for="fName">First Name:</label>
+            <input type="text" name="fName">
+            <br><br>
+            <label for="lName">Last Name:</label>
+            <input type="text" name="lName">
+            <br><br>
+            <label for="address">Address:</label>
+            <input type="text" name="address">
+            <br><br>
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+            <br><br>
+            <label for="age">Age:</label>
+            <input type="number" min="1" max="100" name="age">
+            <br><br>
+            <input type="button" value="Register">
+            <input type="button" value="Login">
+        </form>
+    </div>
 </body>
+
 </html>
