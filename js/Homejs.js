@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    setInterval (currentTimestamp,1000);
+    currentTimestamp();
+    setInterval (currentTimestamp,60000);
 });
 
 function currentTimestamp() {
