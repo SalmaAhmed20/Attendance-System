@@ -32,7 +32,6 @@ body{
     border: 5px solid gray;
     box-shadow: black 2px 2px 8px;
     border-radius: 25px;
-    flex-wrap: wrap;
     background-color: rgba(123, 123, 123, 0.511);
 }
 input[type=text],input[type=number],input[type=email]
@@ -56,8 +55,9 @@ input[type=button]
 }
 label
 {
-    
+    text-align: left; 
+    display: inline-block;
     font-size: 18px;
     font-weight: 800;
-    width: 8vw;
+    width: 8vw;   
 }
