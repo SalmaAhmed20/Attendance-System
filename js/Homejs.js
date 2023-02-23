@@ -51,7 +51,8 @@ function getRegisData() {
             });
             if (!duplicated) {
                 Employees.push(empReg);
-                localStorage.setItem('Requests', JSON.stringify(Employees))
+                localStorage.setItem('Requests', JSON.stringify(Employees));
+                alert("Wait for Confirmation Mail!");
             } else {
                 errorSpan3 = document.getElementById("errormsg3");
                 errorSpan3.innerText = "This Email already exist";
