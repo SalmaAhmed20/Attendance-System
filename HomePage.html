@@ -11,29 +11,32 @@
 </head>
 
 <body>
-    <div class="navbar" >
-        <h1 style="display: inline;"> Online Attandance System</h1>
-        <h2 id ="displayDateTime" style="display: inline;"></h2>
+    <div class="navbar">
+        <h1 style="display: inline;"> Online Attendance System</h1>
+        <h2 id="displayDateTime" style="display: inline;"></h2>
     </div>
     <div class="regisdiv">
         <img src="./images/bg2.png">
         <form class="regisform">
             <label for="fName">First Name:</label>
             <input type="text" name="fName">
+            <h3 style="display: none;" id="errorf"></h3>
             <br><br>
             <label for="lName">Last Name:</label>
             <input type="text" name="lName">
+            <h3 style="display: none;" id="errorl"></h3>
             <br><br>
             <label for="address">Address:</label>
             <input type="text" name="address">
             <br><br>
             <label for="email">Email:</label>
-            <input type="email" name="email">
-            <br><br>
+            <input type="email" name="email" onkeyup="Checkemail()">
+            <br>
+            <span id="errormsg2" class="error"></span><br>
             <label for="age">Age:</label>
             <input type="number" min="1" max="100" name="age">
             <br><br>
-            <input type="button" value="Register">
+            <input type="button" value="Register" onclick="getRegisData()">
             <input type="button" value="Login">
         </form>
     </div>
