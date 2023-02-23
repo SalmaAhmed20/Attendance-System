@@ -33,10 +33,6 @@ function getRegisData() {
         pass = false;
     } if (Checkemail()) {
         if (pass) {
-            //check for duplication
-            Employees = [];
-            let getEmployee;
-            //save data
             let empReg = {
                 'firstname': fname,
                 'lastname': lname,
@@ -44,17 +40,25 @@ function getRegisData() {
                 'address': address,
                 'age': age
             }
-            if (localStorage.getItem('Requests')) {
-                getEmployee = JSON.parse(localStorage.getItem('Requests'));
-                Employees = [getEmployee];
-                //check for duplicate
-                console.log(localStorage.getItem('Requests'))
+            var duplicated = false;
+            Employees = [];
+            Employees = JSON.parse(localStorage.getItem('Requests')) || [];
+            Employees.forEach(element => {
+                if (element['email'] === email) {
+                    duplicated = true;
+                    return;
+                }
+            });
+            if (!duplicated) {
                 Employees.push(empReg);
-                localStorage.setItem('Requests', JSON.stringify(Employees));
+                localStorage.setItem('Requests', JSON.stringify(Employees))
+            } else {
+                errorSpan3 = document.getElementById("errormsg3");
+                errorSpan3.innerText = "This Email already exist";
+                errorSpan3.style.color = "red";
+                errorSpan3.style.display = "block";
+                pass = false;
             }
-            else
-                localStorage.setItem('Requests', JSON.stringify(empReg))
-
         }
     } else {
         pass = false;
