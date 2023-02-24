@@ -47,15 +47,15 @@ a {
 }
 .fa-bell-o{
     padding-top: 0.6vh;
-    font-size: 1.8rem;
+    font-size: 24px;
 }
 .fa-bell-o::after {
     content: attr(value);
-    font-size: 1.5rem;
+    font-size: 0.6em;
     color: #fafafa;
     background-color: rgb(206, 0, 0);
     border-radius: 50%;
-    padding: 0.4vh 0.4vw;
+    padding: 0.4vh 0.5vw;
     position: relative;
     left: -0.2vw;
     top: -1.8vh;
