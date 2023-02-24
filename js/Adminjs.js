@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    currentTimestamp();
     GetNumberofRequests();
     setInterval(currentTimestamp, 60000);
     setInterval(GetNumberofRequests, 20000);
-
-
+    var isTableshown = false;
 });
 function currentTimestamp() {
     // console.log(new Date());
@@ -19,20 +19,24 @@ function currentTimestamp() {
 function GetNumberofRequests() {
     iconvalue = document.getElementsByTagName("i")[0];
     let Employees = JSON.parse(localStorage.getItem('Requests')) || [];
-    iconvalue.setAttribute('value',`${Employees.length}`);
+    iconvalue.setAttribute('value', `${Employees.length}`);
 }
-function BuildTableofRequests()
-{
-    let table = document.getElementsByTagName("table")[0];
-    let Employees = JSON.parse(localStorage.getItem('Requests')) || [];
-    Employees.forEach(element => {
-        let row = table.insertRow(-1);
-        let c1 = row.insertCell(0);
-        let c2 = row.insertCell(1);
-        let c3 = row.insertCell(2);
+function BuildTableofRequests() {
+    if (!isTableshown) {
+        let table = document.getElementsByTagName("table")[0];
+        let Employees = JSON.parse(localStorage.getItem('Requests')) || [];
+        Employees.forEach(element => {
+            let row = table.insertRow(-1);
+            let c1 = row.insertCell(0);
+            let c2 = row.insertCell(1);
+            let c3 = row.insertCell(2);
 
-        c1.innerText = JSON.stringify (element);
-        c2.innerHTML = `<input type=button value=Approve>`;
-        c3.innerHTML = `<input type=button value=Reject>`;
-    });
+            c1.innerText = JSON.stringify(element);
+            c2.innerHTML = `<input type=button value=Approve>`;
+            c3.innerHTML = `<input type=button value=Reject>`;
+        });
+        isTableshown = true;
+        icon = document.getElementsByTagName("i")[0];
+        icon.disabled = true;
+    }
 }
