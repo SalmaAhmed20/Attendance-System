@@ -60,3 +60,20 @@ a {
     left: -0.2vw;
     top: -1.8vh;
 }
+.bodySec
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+th{
+    padding: 5px;
+}
+tr:nth-child(odd) {
+    background-color: rgba(128, 128, 128, 0.557);
+}
+tr,td{
+    border: 2px solid rgb(0, 0, 63);
+    padding: 5px;
+    margin: 2px;
+}
