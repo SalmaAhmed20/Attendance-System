@@ -1,9 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
-    currentTimestamp();
-    GetNumberofRequests();
-    setInterval(currentTimestamp, 60000);
-    setInterval(GetNumberofRequests, 20000);
-});
+
+currentTimestamp();
+GetNumberofRequests();
+setInterval(currentTimestamp, 60000);
+setInterval(GetNumberofRequests, 20000);
+// sendMail("saloma", "salma.ahmed.anees@gmail.com", 'Test Subject', 'Test Message')
+
 var isTableshown = false;
 function currentTimestamp() {
     let date = new Date();
@@ -62,7 +63,7 @@ function deleteRow(btn) {
     let row = btn.parentNode.parentNode;
     let idx = row.rowIndex;
     row.parentNode.removeChild(row);
-    tmp=btn.value;
+    tmp = btn.value;
     return idx;
 }
 //utility Generate Random username
@@ -83,8 +84,16 @@ function randomPassword() {
     let randomstring = Math.random().toString(36).slice(-8);
     return randomstring;
 }
-function sendMail(name, email, subject, message) {
-console.log("under contraction")
+function sendMail(email, subject, message) {
+    Email.send({
+        SecureToken: "ce0acead-626b-49f7-87ba-d056f55d9465",
+        To: email,
+        From: "salma.ahmed.2009@hotmail.com",
+        Subject: subject,
+        Body: message
+    }).then(
+        message => console.log(message)
+    );
 }
 function Approve(btn) {
     //from request to user
@@ -110,12 +119,25 @@ function Approve(btn) {
         });
     }
     pass = randomPassword();
-    console.log(uname);
     approvdEmp.username = uname;
     approvdEmp.password = pass;
-    approvdEmp.Role=tmp;
-    console.log(JSON.stringify(approvdEmp))
-    sendMail(approvdEmp['firstname'] + " " + approvdEmp['lastname'], "salma.ahmed.anees@gmail.com", 'Test Subject', 'Test Message')
+    approvdEmp.Role = tmp;
     users.push(approvdEmp);
+    sendMail(approvdEmp['email'], 'Congrats you have been accepted',
+        `<b>your username:</b>${uname}<br>
+    <b>your password:</b>${pass}\n<br>
+    Best Wishes \n<br>
+    Salma,Shrouk,Maha`)
     localStorage.setItem('Users', JSON.stringify(users));
+}
+function Reject(btn) {
+    let idx = deleteRow(btn) - 1;
+    Req = [];
+    Req = JSON.parse(localStorage.getItem('Requests')) || [];
+    RejectedEmp = idx == 0 ? Req.shift() : Req.splice(idx, idx, 1);
+    localStorage.setItem('Requests', JSON.stringify(Req));
+    sendMail(RejectedEmp['email'], 'Sorry you\'rn\'t accepted',
+    `Sorry you\'rn\'t accepted
+    Best Wishes \n<br>
+    Salma,Shrouk,Maha`)
 }

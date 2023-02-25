@@ -41,17 +41,17 @@ function getRegisData() {
                 'age': age
             }
             var duplicated = false;
-            Employees = [];
-            Employees = JSON.parse(localStorage.getItem('Requests')) || [];
-            Employees.forEach(element => {
+            Reqts = [];
+            Reqts = JSON.parse(localStorage.getItem('Requests')) || [];
+            Reqts.forEach(element => {
                 if (element['email'] === email) {
                     duplicated = true;
                     return;
                 }
             });
             if (!duplicated) {
-                Employees.push(empReg);
-                localStorage.setItem('Requests', JSON.stringify(Employees));
+                Reqts.push(empReg);
+                localStorage.setItem('Requests', JSON.stringify(Reqts));
                 alert("Wait for Confirmation Mail!");
             } else {
                 errorSpan3 = document.getElementById("errormsg3");
