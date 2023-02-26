@@ -100,7 +100,7 @@ function Approve(btn) {
     let idx = deleteRow(btn) - 1;
     Req = [];
     Req = JSON.parse(localStorage.getItem('Requests')) || [];
-    approvdEmp = idx == 0 ? Req.shift() : Req.splice(idx, idx, 1);
+    approvdEmp = idx == 0 ? Req.shift() : Req.splice(idx, idx);
 
     localStorage.setItem('Requests', JSON.stringify(Req));
     //generate random username 

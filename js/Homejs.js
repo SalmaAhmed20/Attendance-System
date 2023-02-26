@@ -49,10 +49,28 @@ function getRegisData() {
                     return;
                 }
             });
-            if (!duplicated) {
-                Reqts.push(empReg);
-                localStorage.setItem('Requests', JSON.stringify(Reqts));
-                alert("Wait for Confirmation Mail!");
+            var duplicated2 = false;
+            users = [];
+            users = JSON.parse(localStorage.getItem('Users')) || [];
+            users.forEach(element => {
+                if (element['email'] === email) {
+                    duplicated2 = true;
+                    return;
+                }
+            });
+            if (!duplicated2) {
+                if (!duplicated) {
+                    Reqts.push(empReg);
+                    localStorage.setItem('Requests', JSON.stringify(Reqts));
+                    alert("Wait for Confirmation Mail!");
+                }
+                else {
+                    errorSpan3 = document.getElementById("errormsg3");
+                    errorSpan3.innerText = "wait the Confirmation mail";
+                    errorSpan3.style.color = "red";
+                    errorSpan3.style.display = "block";
+                    pass = false;
+                }
             } else {
                 errorSpan3 = document.getElementById("errormsg3");
                 errorSpan3.innerText = "This Email already exist";
