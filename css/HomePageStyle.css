@@ -34,7 +34,7 @@ body{
     border-radius: 25px;
     background-color: rgba(123, 123, 123, 0.511);
 }
-input[type=text],input[type=number],input[type=email]
+input[type=text],input[type=number],input[type=email],input[type=password]
 {
     border: 0px;
     border-radius: 8px;

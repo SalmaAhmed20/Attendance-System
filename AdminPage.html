@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin page</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/AdminPageStyle.css">
+    <script src="./js/smtp.js"></script>
+    <script  src="./js/Adminjs.js" defer></script>
+</head>
+
+<body>
+    <div class="main-header">
+        <h2 style="display: inline;"> Online Attendance System</h2>
+        <ul class="menu">
+            <li class="menu__item ">
+                <a class="menu__link" href="#">All Employees</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="#">Full Reports</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="#">Late Reports</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="#">Excuse Reports</a>
+            </li>
+            <li class="menu__item">
+                <a class="menu__link" href="#">Employee Brief</a>
+            </li>
+            <li>
+                <a class="notification" onclick="BuildTableofRequests()">
+                    <i class="fa fa-bell-o" value=0></i>
+                </a>
+            </li>
+        </ul>
+        <h2 id="displayDateTime" style="display: inline;"></h2>
+    </div>
+    <div class="bodySec">
+        <!-- accept users -->
+        <div class="RegisterReq" style="color: black;">
+            <table id="ReqTable">
+                <tr>
+                    <th>Request info </th>
+                    <th colspan="2">Security man</th>
+                    <th> Reject</th>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

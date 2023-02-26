@@ -12,7 +12,7 @@
 
 <body>
     <div class="navbar">
-        <h1 style="display: inline;"> Online Attendance System</h1>
+        <h2 style="display: inline;"> Online Attendance System</h2>
         <h2 id="displayDateTime" style="display: inline;"></h2>
     </div>
     <div class="regisdiv">
@@ -33,11 +33,12 @@
             <input type="email" name="email" onkeyup="Checkemail()">
             <br>
             <span id="errormsg2" class="error"></span><br>
+            <h2 id="errormsg3" class="error" style="display: none;"></h2>
             <label for="age">Age:</label>
             <input type="number" min="1" max="100" name="age">
             <br><br>
             <input type="button" value="Register" onclick="getRegisData()">
-            <input type="button" value="Login">
+            <a href="./LoginPage.html"><input type="button" value="Login"></a>
         </form>
     </div>
 </body>
