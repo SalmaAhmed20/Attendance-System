@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/Homejs.js" defer></script>
+    <script src="./js/Loginjs.js" defer></script>
     <link rel="stylesheet" href="./css/HomePageStyle.css">
     <title>Login Page</title>
 </head>
@@ -18,15 +18,16 @@
     <div class="regisdiv">
         <img src="./images/bg2.png">
         <form class="regisform">
-            <h3 style="display: none;" id="errorf"></h3>
+            <h3 style="display: none;" id="usernameError"></h3>
             <label for="userName">User Name:</label>
-            <input type="text" name="userName">
+            <input type="text" name="userName" id="username">
             <br><br>
+            <h3 style="display: none;" id="passError"></h3>
             <label for="Password">Password :</label>
-            <input type="password" name="Password">
+            <input type="password" name="Password" id="password">
             <br><br>
             <div style="display: flex; justify-content: center; align-items: center;">
-            <input type="button" value="Login">
+            <input type="button" value="Login" onclick="login()">
         </div>
         </form>
     </div>
