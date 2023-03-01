@@ -39,6 +39,7 @@ function getRegisData() {
                 'email': email,
                 'address': address,
                 'age': age
+                // attendance:  []
             }
             var duplicated = false;
             Reqts = [];

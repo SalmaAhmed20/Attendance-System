@@ -1,0 +1,20 @@
+.body{
+    background-color: white;
+}
+img{
+    width:40%;
+    height: 40vh;
+}
+.btn-div{
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+}
+@media only screen and (max-width: 700px) {
+    img {
+        width:90%;
+    }
+  }
