@@ -122,6 +122,7 @@ function Approve(btn) {
     approvdEmp.username = uname;
     approvdEmp.password = pass;
     approvdEmp.Role = tmp;
+    approvdEmp.attendance=[];
     users.push(approvdEmp);
     sendMail(approvdEmp['email'], 'Congrats you have been accepted',
         `<b>your username:</b>${uname}<br>
