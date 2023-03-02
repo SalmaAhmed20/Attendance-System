@@ -3,7 +3,7 @@ function login(){
     let password = document.getElementById("password").value;
     if(!userIfEmpty(username) && !passIfEmpty(password)) {
         if(userExist(username,password)){
-            checkRole();
+            checkRole(username);
         }
     }
 
@@ -47,6 +47,7 @@ function userExist(username,password){
         users.forEach(element => {
              if (element['username'] === username && element['password'] === password) {
                 role = element['Role'];
+                attendance=element['attendance'];
                 user = true;
             }
             
@@ -59,7 +60,9 @@ function userExist(username,password){
     }
     return user;   
 }
-function checkRole(){
+function checkRole(username){
+    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("attendance", JSON.stringify(attendance));
     if(role==="Employee"){
         window.location.replace("EmployeePage.html");
     }
