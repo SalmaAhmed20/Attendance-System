@@ -3,8 +3,9 @@ currentTimestamp();
 GetNumberofRequests();
 setInterval(currentTimestamp, 60000);
 setInterval(GetNumberofRequests, 20000);
-var AllEmpshown = false;
+var AllEmpshown = true;
 var isTableshown = false;
+AllEmployeeTable();
 function currentTimestamp() {
     let date = new Date();
     const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
@@ -156,7 +157,7 @@ function AllEmployeeTable() {
     document.getElementsByTagName("i")[0].disabled = false;
     isTableshown = false;
     users = JSON.parse(localStorage.getItem('Users')) || [];
-    if (!AllEmpshown) {
+    if (AllEmpshown) {
         let row = table.insertRow(-1);
         let c1 = row.insertCell(0);
         let c2 = row.insertCell(1);
@@ -185,6 +186,6 @@ function AllEmployeeTable() {
                 }
             }
         })
-        AllEmpshown = true;
+        AllEmpshown = false;
     }
 }
