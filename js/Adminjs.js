@@ -3,8 +3,7 @@ currentTimestamp();
 GetNumberofRequests();
 setInterval(currentTimestamp, 60000);
 setInterval(GetNumberofRequests, 20000);
-// sendMail("saloma", "salma.ahmed.anees@gmail.com", 'Test Subject', 'Test Message')
-
+var AllEmpshown = false;
 var isTableshown = false;
 function currentTimestamp() {
     let date = new Date();
@@ -23,13 +22,12 @@ function GetNumberofRequests() {
 }
 function BuildTableofRequests() {
     if (!isTableshown) {
-        let table = document.getElementsByTagName("table")[0];
-        document.getElementsByClassName("RegisterReq")[0].style.display="flex";
-        document.getElementsByClassName("AllEmp")[0].style.display="none";
-        document.getElementsByClassName("LateReport")[0].style.display="none";
-        document.getElementsByClassName("ExcuseReport")[0].style.display="none";
-        document.getElementsByClassName("EmpBrief")[0].style.display="none";
-
+        let table = document.getElementById("ReqTable");
+        document.getElementsByClassName("RegisterReq")[0].style.display = "flex";
+        document.getElementsByClassName("AllEmp")[0].style.display = "none";
+        document.getElementsByClassName("LateReport")[0].style.display = "none";
+        document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
+        document.getElementsByClassName("EmpBrief")[0].style.display = "none";
         let Employees = JSON.parse(localStorage.getItem('Requests')) || [];
         Employees.forEach(element => {
             let row = table.insertRow(-1);
@@ -37,7 +35,7 @@ function BuildTableofRequests() {
             let c2 = row.insertCell(1);
             let c3 = row.insertCell(2);
             let c4 = row.insertCell(3);
-            flelement = document.createElement("h2");
+            let flelement = document.createElement("h2");
             flelement.innerText = "Full Name: ";
             flelement.innerText += element['firstname'] + " " + element["lastname"];
             emailelment = document.createElement("h4");
@@ -128,7 +126,7 @@ function Approve(btn) {
     approvdEmp.username = uname;
     approvdEmp.password = pass;
     approvdEmp.Role = tmp;
-    approvdEmp.attendance=[];
+    approvdEmp.attendance = [];
     users.push(approvdEmp);
     sendMail(approvdEmp['email'], 'Congrats you have been accepted',
         `<b>your username:</b>${uname}<br>
@@ -144,7 +142,49 @@ function Reject(btn) {
     RejectedEmp = idx == 0 ? Req.shift() : Req.splice(idx, idx, 1);
     localStorage.setItem('Requests', JSON.stringify(Req));
     sendMail(RejectedEmp['email'], 'Sorry you\'rn\'t accepted',
-    `Sorry you\'rn\'t accepted
+        `Sorry you\'rn\'t accepted
     Best Wishes \n<br>
     Salma,Shrouk,Maha`)
+}
+function AllEmployeeTable() {
+    let table = document.getElementById("FullEmptble");
+    document.getElementsByClassName("RegisterReq")[0].style.display = "none";
+    document.getElementsByClassName("AllEmp")[0].style.display = "block";
+    document.getElementsByClassName("LateReport")[0].style.display = "none";
+    document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
+    document.getElementsByClassName("EmpBrief")[0].style.display = "none";
+    document.getElementsByTagName("i")[0].disabled = false;
+    isTableshown = false;
+    users = JSON.parse(localStorage.getItem('Users')) || [];
+    if (!AllEmpshown) {
+        let row = table.insertRow(-1);
+        let c1 = row.insertCell(0);
+        let c2 = row.insertCell(1);
+        users.forEach((item) => {
+            if (item.Role !== "Admin") {
+                console.log(new Date(item.attendance[item.attendance.length - 1].arrival).getDate());
+                day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
+                month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
+                let flelement = document.createElement("h2");
+                flelement.innerText = "Full Name: ";
+                flelement.innerText += item.firstname + " " + item.lastname;
+                let usernameelment = document.createElement("h4");
+                usernameelment.innerText = "username: ";
+                usernameelment.innerText+=item.username;
+                c1.appendChild(flelement)
+                c1.appendChild(usernameelment)
+                if (day == new Date().getDate() && month == new Date().getMonth()) {
+                    if (item.attendance[item.attendance.length - 1].departure === '') {
+                        c2.innerHTML = `<h2 id="present">Present</h2>`;
+                    } else {
+                        c2.innerHTML = `<h2 id="left">left</h2>`;
+                    }
+
+                } else {
+                    c2.innerHTML = `<h2 id="absent">Absent</h2>`;
+                }
+            }
+        })
+        AllEmpshown = true;
+    }
 }

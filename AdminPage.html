@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/AdminPageStyle.css">
     <script src="./js/smtp.js"></script>
-    <script  src="./js/Adminjs.js" defer></script>
+    <script src="./js/Adminjs.js" defer></script>
 </head>
 
 <body>
@@ -17,19 +17,19 @@
         <h2 style="display: inline;"> Online Attendance System</h2>
         <ul class="menu">
             <li class="menu__item ">
-                <a class="menu__link" href="#">All Employees</a>
+                <a id="menu__link1" href="#" onclick="AllEmployeeTable(this)">All Employees</a>
             </li>
             <li class="menu__item">
-                <a class="menu__link" href="#">Full Reports</a>
+                <a id="menu__link2" href="#">Full Reports</a>
             </li>
             <li class="menu__item">
-                <a class="menu__link" href="#">Late Reports</a>
+                <a id="menu__link3" href="#">Late Reports</a>
             </li>
             <li class="menu__item">
-                <a class="menu__link" href="#">Excuse Reports</a>
+                <a id="menu__link4" href="#">Excuse Reports</a>
             </li>
             <li class="menu__item">
-                <a class="menu__link" href="#">Employee Brief</a>
+                <a id="menu__link5" href="#">Employee Brief</a>
             </li>
             <li>
                 <a class="notification" onclick="BuildTableofRequests()">
@@ -41,7 +41,7 @@
     </div>
     <div class="bodySec">
         <!-- accept users -->
-        <div class="RegisterReq" style="color: black;display: none;" >
+        <div class="RegisterReq" style="color: black;display: none;">
             <table id="ReqTable">
                 <tr>
                     <th>Request info </th>
@@ -52,6 +52,13 @@
             </table>
         </div>
         <div class="AllEmp" style="display: none;">
+            <h1 style="color: rgb(0, 0, 63);">All Employees</h1>
+            <table id="FullEmptble">
+                <tr>
+                    <th>Employee</th>
+                    <th>Status</th>
+                </tr>
+            </table>
         </div>
         <div class="FullReport" style="display: none;">
             <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
@@ -64,4 +71,5 @@
         </div>
     </div>
 </body>
+
 </html>
