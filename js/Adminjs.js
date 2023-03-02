@@ -24,6 +24,12 @@ function GetNumberofRequests() {
 function BuildTableofRequests() {
     if (!isTableshown) {
         let table = document.getElementsByTagName("table")[0];
+        document.getElementsByClassName("RegisterReq")[0].style.display="flex";
+        document.getElementsByClassName("AllEmp")[0].style.display="none";
+        document.getElementsByClassName("LateReport")[0].style.display="none";
+        document.getElementsByClassName("ExcuseReport")[0].style.display="none";
+        document.getElementsByClassName("EmpBrief")[0].style.display="none";
+
         let Employees = JSON.parse(localStorage.getItem('Requests')) || [];
         Employees.forEach(element => {
             let row = table.insertRow(-1);
