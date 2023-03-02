@@ -1,11 +1,13 @@
 function confirmAttendance(){
     currentDate = new Date();
+    //alert(currentDate);
     username = document.getElementById("username").value;
     if(userExist(username)){
         attObj={
-            'arrival': new Date(),
+            'arrival': currentDate+'',
             'departure': ''
         }
+        alert(attObj.arrival);
         if(userobj.attendance.length == 0){
            
             users.forEach(element => {
@@ -23,7 +25,7 @@ function confirmAttendance(){
             if(lastAtten.departure ===''){
                 
                 if(arrival.getDate()+arrival.getMonth()+arrival.getYear()=== currentDate.getDate()+currentDate.getMonth()+currentDate.getYear()){
-                    lastAtten.departure = new Date();                }
+                    lastAtten.departure = currentDate+'';                }
                 else{
                     Date.prototype.addHours = function(h) {
                         this.setTime(this.getTime() + (h*60*60*1000));
