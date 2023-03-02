@@ -47,6 +47,7 @@ function userExist(username,password){
         users.forEach(element => {
              if (element['username'] === username && element['password'] === password) {
                 role = element['Role'];
+                fullName = element['firstname']+" "+element['lastname'];
                 attendance=element['attendance'];
                 user = true;
             }
@@ -61,7 +62,7 @@ function userExist(username,password){
     return user;   
 }
 function checkRole(username){
-    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("fullName", fullName);
     sessionStorage.setItem("attendance", JSON.stringify(attendance));
     if(role==="Employee"){
         window.location.replace("EmployeePage.html");
