@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/AdminPageStyle.css">
+    <link rel="stylesheet" href="./css/EmployeePageStyle.css">
     <script src="./js/smtp.js"></script>
     <script  src="./js/Employee.js" defer></script>
 </head>
@@ -20,12 +20,13 @@
                 <a class="menu__link" href="#">Monthly report</a>
             </li>
             <li class="menu__item">
-                <a class="menu__link" href="#">Daily report</a>
+                <a class="menu__link" onclick="BuildDailyReport()">Daily report</a>
             </li>
         </ul>
         <h2 id="displayDateTime" style="display: inline;"></h2>
     </div>
     <div class="bodySec">
+        
     </div>
 </body>
 </html>

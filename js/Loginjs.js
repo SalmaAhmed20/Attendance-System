@@ -49,6 +49,7 @@ function userExist(username,password){
                 role = element['Role'];
                 fullName = element['firstname']+" "+element['lastname'];
                 attendance=element['attendance'];
+                currentUser=element['username'];
                 user = true;
             }
             
@@ -63,6 +64,7 @@ function userExist(username,password){
 }
 function checkRole(username){
     sessionStorage.setItem("fullName", fullName);
+    sessionStorage.setItem("currentUser", currentUser);
     sessionStorage.setItem("attendance", JSON.stringify(attendance));
     if(role==="Employee"){
         window.location.replace("EmployeePage.html");
