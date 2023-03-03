@@ -151,6 +151,7 @@ function AllEmployeeTable() {
     let table = document.getElementById("FullEmptble");
     document.getElementsByClassName("RegisterReq")[0].style.display = "none";
     document.getElementsByClassName("AllEmp")[0].style.display = "block";
+    document.getElementsByClassName("FullReport")[0].style.display = "none";
     document.getElementsByClassName("LateReport")[0].style.display = "none";
     document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
     document.getElementsByClassName("EmpBrief")[0].style.display = "none";
@@ -158,10 +159,10 @@ function AllEmployeeTable() {
     isTableshown = false;
     users = JSON.parse(localStorage.getItem('Users')) || [];
     if (AllEmpshown) {
-        let row = table.insertRow(-1);
-        let c1 = row.insertCell(0);
-        let c2 = row.insertCell(1);
         users.forEach((item) => {
+            let row = table.insertRow(-1);
+            let c1 = row.insertCell(0);
+            let c2 = row.insertCell(1);
             if (item.Role !== "Admin") {
                 console.log(new Date(item.attendance[item.attendance.length - 1].arrival).getDate());
                 day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
@@ -171,7 +172,7 @@ function AllEmployeeTable() {
                 flelement.innerText += item.firstname + " " + item.lastname;
                 let usernameelment = document.createElement("h4");
                 usernameelment.innerText = "username: ";
-                usernameelment.innerText+=item.username;
+                usernameelment.innerText += item.username;
                 c1.appendChild(flelement)
                 c1.appendChild(usernameelment)
                 if (day == new Date().getDate() && month == new Date().getMonth()) {
@@ -189,3 +190,61 @@ function AllEmployeeTable() {
         AllEmpshown = false;
     }
 }
+function LateEmp() {
+    //number of lates this month
+    document.getElementsByClassName("RegisterReq")[0].style.display = "none";
+    document.getElementsByClassName("AllEmp")[0].style.display = "none";
+    document.getElementsByClassName("FullReport")[0].style.display = "none";
+    document.getElementsByClassName("LateReport")[0].style.display = "block";
+    document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
+    document.getElementsByClassName("EmpBrief")[0].style.display = "none";
+    document.getElementsByTagName("i")[0].disabled = false;
+    isTableshown = false;
+    AllEmpshown = false;
+    users = JSON.parse(localStorage.getItem('Users')) || [];
+    latearray = [];
+    globalnumberoflates = 0;
+    users.forEach((user) => {
+        console.log(user.firstname);
+        usAttend = user.attendance;
+        Numberoflatesperuser = 0;
+        usAttend.forEach((obj) => {
+            if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
+                currentdate = new Date(new Date().getFullYear(),
+                    new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
+                arrival = new Date(obj.arrival).setSeconds(0, 0);
+                let diff = msToTime(Math.abs(currentdate - arrival));
+                let diffh = diff.split(":")[0];
+                let diffm = diff.split(":")[1];
+                if (diffh === "00") {
+                    //he can have minimum 10 minutes late
+                    if (Number(diffm) > 10) {
+                        Numberoflatesperuser += 1;
+                        globalnumberoflates += 1;
+                    }
+
+                } else {
+                    Numberoflatesperuser += 1;
+                    globalnumberoflates += 1;
+                }
+            }
+        })
+        // console.log(Numberoflatesperuser);
+        latearray.push(Numberoflatesperuser);
+    })
+    //late today precentage
+}
+//uility function 
+function msToTime(duration) {
+    var milliseconds = Math.floor((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+}
+

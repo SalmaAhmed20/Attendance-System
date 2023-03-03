@@ -17,13 +17,13 @@
         <h2 style="display: inline;"> Online Attendance System</h2>
         <ul class="menu">
             <li class="menu__item ">
-                <a id="menu__link1" href="#" onclick="AllEmployeeTable(this)">All Employees</a>
+                <a id="menu__link1" href="#" onclick="AllEmployeeTable()">All Employees</a>
             </li>
             <li class="menu__item">
                 <a id="menu__link2" href="#">Full Reports</a>
             </li>
             <li class="menu__item">
-                <a id="menu__link3" href="#">Late Reports</a>
+                <a id="menu__link3" href="#" onclick="LateEmp()">Late Reports</a>
             </li>
             <li class="menu__item">
                 <a id="menu__link4" href="#">Excuse Reports</a>
@@ -64,6 +64,8 @@
             <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
         </div>
         <div class="LateReport" style="display: none;">
+            <canvas id="lateChart" style="width:100%;max-width:600px"></canvas>
+
         </div>
         <div class="ExcuseReport" style="display: none;">
         </div>
