@@ -67,6 +67,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family:'Courier New', Courier, monospace;
 }
 th{
     padding: 5px;
@@ -100,8 +101,9 @@ tr,td{
     border: 2px solid black;
     border-radius: 15px;
     color: rgb(0, 0, 63);
+    font-family:'Courier New', Courier, monospace;
 }
-#numberoflate ,#mostlatestemp
+#numberoflate ,#mostlatestemp,#mostabsentemp
 {
     color: rgb(0, 0, 63);
 

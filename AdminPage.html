@@ -21,7 +21,7 @@
                 <a id="menu__link1" href="#" onclick="AllEmployeeTable()">All Employees</a>
             </li>
             <li class="menu__item">
-                <a id="menu__link2" href="#">Full Reports</a>
+                <a id="menu__link2" href="#" onclick="FullReport()">Full Reports</a>
             </li>
             <li class="menu__item">
                 <a id="menu__link3" href="#" onclick="LateEmp()">Late Reports</a>
@@ -63,11 +63,15 @@
         </div>
         <div class="FullReport" style="display: none;">
             <canvas id="myChart" style="width:80vw;height: 50vh;"></canvas>
+            <h2 id="numberofabsentmonth"></h2>
+            <h3 id="numberoflate2"></h3>
+            <h3 id="mostlatestemp2"></h3>
+            <h2 id="mostabsentemp"></h2>
         </div>
         <div class="LateReport" style="display: none;">
             <canvas id="lateChart" style="width:10vw;height: 10vh;"></canvas>
-            <h2 id = "numberoflate"></h2>
-            <h2 id="mostlatestemp" ></h2>
+            <h3 id="numberoflate"></h3>
+            <h3 id="mostlatestemp"></h3>
 
         </div>
         <div class="ExcuseReport" style="display: none;">
