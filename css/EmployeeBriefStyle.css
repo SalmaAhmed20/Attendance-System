@@ -1,0 +1,53 @@
+.regisdiv {
+    margin: auto;
+    height: 90vh;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-left: 6vw;
+}
+.regisform {
+    padding: 10vh;
+    border: 5px solid gray;
+    box-shadow: black 2px 2px 8px;
+    border-radius: 25px;
+    background-color: rgba(123, 123, 123, 0.511);
+}
+input[type=text],input[type=number],input[type=email],input[type=password]
+{
+    border: 0px;
+    border-radius: 8px;
+    box-shadow: gray 2px 2px 5px;
+    width: 20vw;
+    padding: 1vh 3vw;
+}
+input[type=button]
+{
+    font-size: 18px;
+    font-weight: 800;
+    background-color: rgb(0, 0, 63);
+    color: rgb(233, 239, 255) ;
+    border: 0px;
+    border-radius: 20px;
+    padding: 1.5vh 3vw;
+    margin-left: 4vw;
+}
+label
+{
+    text-align: left; 
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 800;
+    width: 8vw;   
+}
+.btn-div{
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+}
