@@ -1,14 +1,11 @@
-document.addEventListener("DOMContentLoaded", async function () {
-    currentTimestamp();
-    setInterval(currentTimestamp, 60000);
-    users = JSON.parse(localStorage.getItem('Users')) || [];
-    if (users.length === 0) {
-        let ad =await fetch("./data.json");
-        users.push(ad);
-        localStorage.setItem('Users', JSON.stringify(users));
-    }
-
-});
+currentTimestamp();
+setInterval(currentTimestamp, 60000);
+users = JSON.parse(localStorage.getItem('Users')) || [];
+if (users.length === 0) {
+    fetch('./data.json')
+        .then((response) => response.json())
+        .then((json) => { users.push(json); localStorage.setItem('Users', JSON.stringify(users)); });
+}
 function currentTimestamp() {
     console.log(new Date());
     var date = new Date();
