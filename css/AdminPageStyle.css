@@ -12,9 +12,10 @@ ul {
     list-style: none;
 }
 
-h2{
+h2 {
     font-size: 22px;
 }
+
 a {
     text-decoration: none;
     color: rgb(0, 0, 63);
@@ -38,19 +39,23 @@ a {
     padding: 1.5vh 1vw;
     border-radius: 15px;
 }
+
 .menu__item {
     margin: 0 .25rem;
     padding: .25rem .5rem;
     color: rgb(0, 0, 63);
     font-size: 18px;
 }
+
 .notification {
     position: relative;
 }
-.fa-bell-o{
+
+.fa-bell-o {
     padding-top: 0.6vh;
     font-size: 24px;
 }
+
 .fa-bell-o::after {
     content: attr(value);
     font-size: 0.6em;
@@ -62,37 +67,49 @@ a {
     left: -0.2vw;
     top: -1.8vh;
 }
-.bodySec
-{
+
+.bodySec {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
 }
-th{
+
+th {
     padding: 5px;
 }
+
 tr:nth-child(odd) {
     background-color: rgba(128, 128, 128, 0.557);
 }
-tr,td{
+
+tr,
+td {
     border: 2px solid rgb(0, 0, 63);
     padding: 5px;
     margin: 2px;
 }
-#FullEmptble
-{
+
+#FullEmptble {
     color: #000;
 }
-#present
-{
-    color: green;   
+
+#present {
+    color: green;
 }
-#absent
-{
+
+#absent {
     color: red;
 }
-.LateReport{
+
+#details {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.LateReport {
     background-color: rgba(128, 128, 128, 0.432);
     display: flex;
     flex-direction: column;
@@ -101,23 +118,26 @@ tr,td{
     border: 2px solid black;
     border-radius: 15px;
     color: rgb(0, 0, 63);
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
 }
-#numberoflate ,#mostlatestemp,#mostabsentemp
-{
+
+#numberoflate,
+#mostlatestemp,
+#mostabsentemp {
     color: rgb(0, 0, 63);
 
 }
-.FullReport
-{
+
+.FullReport {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     padding: 1vw 1vh;
     border: 2px solid black;
     border-radius: 15px;
     color: rgb(0, 0, 63);
 }
-#excusesTable{
+
+#excusesTable {
     color: #000;
 }
