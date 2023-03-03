@@ -7,7 +7,7 @@ function confirmAttendance(){
             'arrival': currentDate+'',
             'departure': ''
         }
-        alert(attObj.arrival);
+        //alert(attObj.arrival);
         if(userobj.attendance.length == 0){
            
             users.forEach(element => {
