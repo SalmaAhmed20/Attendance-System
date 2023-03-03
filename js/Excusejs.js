@@ -21,34 +21,33 @@ function excuses(){
         }
         users[x]["noOfExcuses"]=users[x]["attendance"].length;
     }
-    table();
+    displayExcusesTable();
 }
-function table(){
+function displayExcusesTable(){
     document.getElementsByClassName("RegisterReq")[0].style.display = "none";
     document.getElementsByClassName("AllEmp")[0].style.display = "none";
     document.getElementsByClassName("FullReport")[0].style.display = "none";
     document.getElementsByClassName("LateReport")[0].style.display = "none";
     document.getElementsByClassName("ExcuseReport")[0].style.display = "flex";
     document.getElementsByClassName("EmpBrief")[0].style.display = "none";
-    for(var x=0; x<users.length;x++){
-        var row = document.createElement("tr");
-        var td1 = document.createElement("td");
-        td1.innerText = users[x]["firstname"]+" "+users[x]["lastname"];
-        var td2 = document.createElement("td");
-        td2.innerText = users[x]["noOfExcuses"];
-        var td3 = document.createElement("td");
-        td3.innerHTML="<p>";
-        for(var j=0; j<users[x]["attendance"].length; j++){
-            td3.innerHTML+=`Arrival: ${users[x]["attendance"][j].arrival}<br> 
-            Departure: ${users[x]["attendance"][j].departure}<br><br>`
+    if(excusesTable.children.length < 2){
+        for(var x=0; x<users.length;x++){
+            var row = document.createElement("tr");
+            var td1 = document.createElement("td");
+            td1.innerText = users[x]["firstname"]+" "+users[x]["lastname"];
+            var td2 = document.createElement("td");
+            td2.innerText = users[x]["noOfExcuses"];
+            var td3 = document.createElement("td");
+            td3.innerHTML="<p>";
+            for(var j=0; j<users[x]["attendance"].length; j++){
+                td3.innerHTML+=`Arrival: ${users[x]["attendance"][j].arrival}<br> 
+                Departure: ${users[x]["attendance"][j].departure}<br><br>`
+            }
+            td3.innerHTML+="</p>";
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+            excusesTable.appendChild(row);
         }
-        td3.innerHTML+="</p>";
-        row.appendChild(td1);
-        row.appendChild(td2);
-        row.appendChild(td3);
-        excusesTable.appendChild(row);
     }
-
-
-    
 }
