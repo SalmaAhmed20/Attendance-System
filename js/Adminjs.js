@@ -270,7 +270,7 @@ function LateEmp() {
 
         })
 
-        let percentage = (Numberoflates / Math.abs(users.length - absent-1)) * 100
+        let percentage = (Numberoflates / Math.abs(users.length - absent - 1)) * 100
         var xValues = ["Late", "In Time"];
         var yValues = [percentage, percentage - 100];
         var barColors = ["#b91d47", "#00aba9"];
@@ -292,7 +292,7 @@ function LateEmp() {
             }
         });
         document.getElementById("numberoflate").innerText += " " + globalnumberoflates;
-        let result = latearray.indexOf(Math.max(...latearray));
+        let result = latearray.indexOf(Math.max(...latearray)) + 1;
         document.getElementById("mostlatestemp").innerText += " " + users[result].firstname + " " + users[result].lastname + " " + Math.max(...latearray) + " lates";
         lateReportshown = true;
     }
@@ -383,7 +383,6 @@ function FullReport() {
                 }
             }
         });
-
         fullreport = true;
     }
 }
