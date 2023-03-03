@@ -169,25 +169,27 @@ function AllEmployeeTable() {
                 let c1 = row.insertCell(0);
                 let c2 = row.insertCell(1);
                 if (item.Role !== "Admin") {
-                    day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
-                    month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
-                    let flelement = document.createElement("h2");
-                    flelement.innerText = "Full Name: ";
-                    flelement.innerText += item.firstname + " " + item.lastname;
-                    let usernameelment = document.createElement("h4");
-                    usernameelment.innerText = "username: ";
-                    usernameelment.innerText += item.username;
-                    c1.appendChild(flelement)
-                    c1.appendChild(usernameelment)
-                    if (day == new Date().getDate() && month == new Date().getMonth()) {
-                        if (item.attendance[item.attendance.length - 1].departure === '') {
-                            c2.innerHTML = `<h2 id="present">Present</h2>`;
-                        } else {
-                            c2.innerHTML = `<h2 id="left">left</h2>`;
-                        }
+                    if (item.attendance.length > 0) {
+                        day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
+                        month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
+                        let flelement = document.createElement("h2");
+                        flelement.innerText = "Full Name: ";
+                        flelement.innerText += item.firstname + " " + item.lastname;
+                        let usernameelment = document.createElement("h4");
+                        usernameelment.innerText = "username: ";
+                        usernameelment.innerText += item.username;
+                        c1.appendChild(flelement)
+                        c1.appendChild(usernameelment)
+                        if (day == new Date().getDate() && month == new Date().getMonth()) {
+                            if (item.attendance[item.attendance.length - 1].departure === '') {
+                                c2.innerHTML = `<h2 id="present">Present</h2>`;
+                            } else {
+                                c2.innerHTML = `<h2 id="left">left</h2>`;
+                            }
 
-                    } else {
-                        c2.innerHTML = `<h2 id="absent">Absent</h2>`;
+                        } else {
+                            c2.innerHTML = `<h2 id="absent">Absent</h2>`;
+                        }
                     }
                 }
             }
@@ -247,24 +249,26 @@ function LateEmp() {
         users.forEach((user) => {
             if (user.Role !== "Admin") {
                 usAttend = user.attendance;
-                existarr = new Date(user.attendance[user.attendance.length - 1].arrival).setSeconds(0, 0);
-                currentdate = new Date(new Date().getFullYear(),
-                    new Date().getMonth(), new Date().getDate(), 8, 30);
-                day = new Date(user.attendance[user.attendance.length - 1].arrival).getDate();
-                month = new Date(user.attendance[user.attendance.length - 1].arrival).getMonth();
-                if (day == new Date().getDate() && month == new Date().getMonth()) {
-                    let diff = msToTime(Math.abs(currentdate - existarr));
-                    let diffh = diff.split(":")[0];
-                    let diffm = diff.split(":")[1];
-                    if (diffh === "00") {
-                        if (Number(diffm) > 10) {
-                            Numberoflates += 1;
+                if (user.attendance.length > 0) {
+                    existarr = new Date(user.attendance[user.attendance.length - 1].arrival).setSeconds(0, 0);
+                    currentdate = new Date(new Date().getFullYear(),
+                        new Date().getMonth(), new Date().getDate(), 8, 30);
+                    day = new Date(user.attendance[user.attendance.length - 1].arrival).getDate();
+                    month = new Date(user.attendance[user.attendance.length - 1].arrival).getMonth();
+                    if (day == new Date().getDate() && month == new Date().getMonth()) {
+                        let diff = msToTime(Math.abs(currentdate - existarr));
+                        let diffh = diff.split(":")[0];
+                        let diffm = diff.split(":")[1];
+                        if (diffh === "00") {
+                            if (Number(diffm) > 10) {
+                                Numberoflates += 1;
+                            }
+                        } else {
+                            Numberoflates += 1
                         }
                     } else {
-                        Numberoflates += 1
+                        absent += 1;
                     }
-                } else {
-                    absent += 1;
                 }
             }
 
@@ -290,6 +294,7 @@ function LateEmp() {
                     text: "Precentage of late today" + new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear()
                 }
             }
+
         });
         document.getElementById("numberoflate").innerText += " " + globalnumberoflates;
         let result = latearray.indexOf(Math.max(...latearray)) + 1;
@@ -328,29 +333,31 @@ function FullReport() {
         users = JSON.parse(localStorage.getItem('Users')) || [];
         users.forEach((item) => {
             if (item.Role != "Admin") {
-                console.log(item.Role)
-                day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
-                month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
-                if (day == new Date().getDate() && month == new Date().getMonth()) {
-                    //check for late 
-                    existarr = new Date(item.attendance[item.attendance.length - 1].arrival).setSeconds(0, 0);
-                    currentdate = new Date(new Date().getFullYear(),
-                        new Date().getMonth(), new Date().getDate(), 8, 30);
-                    let diff = msToTime(Math.abs(currentdate - existarr));
-                    let diffh = diff.split(":")[0];
-                    let diffm = diff.split(":")[1];
-                    if (diffh === "00") {
-                        console.log("in")
-                        if (Number(diffm) > 10) {
+                if (item.attendance.length > 0) {
+                    console.log(item.Role)
+                    day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
+                    month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
+                    if (day == new Date().getDate() && month == new Date().getMonth()) {
+                        //check for late 
+                        existarr = new Date(item.attendance[item.attendance.length - 1].arrival).setSeconds(0, 0);
+                        currentdate = new Date(new Date().getFullYear(),
+                            new Date().getMonth(), new Date().getDate(), 8, 30);
+                        let diff = msToTime(Math.abs(currentdate - existarr));
+                        let diffh = diff.split(":")[0];
+                        let diffm = diff.split(":")[1];
+                        if (diffh === "00") {
+                            console.log("in")
+                            if (Number(diffm) > 10) {
+                                Numberoflates += 1;
+                            }
+                        } else {
+                            console.log("in2")
+
                             Numberoflates += 1;
                         }
                     } else {
-                        console.log("in2")
-
-                        Numberoflates += 1;
+                        numberofAbsent += 1;
                     }
-                } else {
-                    numberofAbsent += 1;
                 }
             }
         });
@@ -403,50 +410,52 @@ function BuildTableoflates() {
             let c4 = row.insertCell(3);
             if (item.Role !== "Admin") {
                 usAttend = item.attendance;
-                Numberoflatesperuser = 0;
-                numberofexcuese = 0;
-                usAttend.forEach((obj) => {
-                    if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
-                        currentdate = new Date(new Date().getFullYear(),
-                            new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
-                        arrival = new Date(obj.arrival).setSeconds(0, 0);
-                        let diff = msToTime(Math.abs(currentdate - arrival));
-                        let diffh = diff.split(":")[0];
-                        let diffm = diff.split(":")[1];
-                        if (diffh === "00") {
-                            //he can have minimum 10 minutes late
-                            if (Number(diffm) > 10) {
+                if (item.attendance.length > 0) {
+                    Numberoflatesperuser = 0;
+                    numberofexcuese = 0;
+                    usAttend.forEach((obj) => {
+                        if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
+                            currentdate = new Date(new Date().getFullYear(),
+                                new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
+                            arrival = new Date(obj.arrival).setSeconds(0, 0);
+                            let diff = msToTime(Math.abs(currentdate - arrival));
+                            let diffh = diff.split(":")[0];
+                            let diffm = diff.split(":")[1];
+                            if (diffh === "00") {
+                                //he can have minimum 10 minutes late
+                                if (Number(diffm) > 10) {
+                                    Numberoflatesperuser += 1;
+                                }
+                            } else {
                                 Numberoflatesperuser += 1;
                             }
+                            departure = new Date(obj.departure).setSeconds(0, 0);
+                            diff = msToTime(Math.abs(departure - arrival));
+                            if (Number(diffh) < 8) {
+                                numberofexcuese += 1;
+                            }
+                        }
+                    })
+                    day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
+                    month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
+                    let flelement = document.createElement("h2");
+                    flelement.innerText = "Full Name: ";
+                    flelement.innerText += item.firstname + " " + item.lastname;
+                    c1.appendChild(flelement)
+                    if (day == new Date().getDate() && month == new Date().getMonth()) {
+                        if (item.attendance[item.attendance.length - 1].departure === '') {
+                            c2.innerHTML = `<h2 id="present">Present</h2>`;
                         } else {
-                            Numberoflatesperuser += 1;
+                            c2.innerHTML = `<h2 id="left">left</h2>`;
                         }
-                        departure = new Date(obj.departure).setSeconds(0, 0);
-                        diff = msToTime(Math.abs(departure - arrival));
-                        if (Number(diffh) < 8) {
-                            numberofexcuese += 1;
-                        }
-                    }
-                })
-                day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
-                month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
-                let flelement = document.createElement("h2");
-                flelement.innerText = "Full Name: ";
-                flelement.innerText += item.firstname + " " + item.lastname;
-                c1.appendChild(flelement)
-                if (day == new Date().getDate() && month == new Date().getMonth()) {
-                    if (item.attendance[item.attendance.length - 1].departure === '') {
-                        c2.innerHTML = `<h2 id="present">Present</h2>`;
+
                     } else {
-                        c2.innerHTML = `<h2 id="left">left</h2>`;
+                        c2.innerHTML = `<h2 id="absent">Absent</h2>`;
                     }
+                    c3.innerHTML = `<h2 >${Numberoflatesperuser}</h2>`
+                    c4.innerHTML = `<h2 >${numberofexcuese}</h2>`
 
-                } else {
-                    c2.innerHTML = `<h2 id="absent">Absent</h2>`;
                 }
-                c3.innerHTML = `<h2 >${Numberoflatesperuser}</h2>`
-                c4.innerHTML = `<h2 >${numberofexcuese}</h2>`
-
             }
         }
     })

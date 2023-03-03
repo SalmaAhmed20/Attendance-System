@@ -1,4 +1,4 @@
-{
+[{
     "firstname": "ITI",
     "lastname": "Adminstrator",
     "email": "iti@itii.com",
@@ -8,4 +8,37 @@
     "password": "123456789",
     "Role": "Admin",
     "attendance": []
+},
+{
+    "firstname": "Salma",
+    "lastname": "Ahmed",
+    "email": "salma.ahmed.anees@gmail.com",
+    "address": "w19street",
+    "age": "",
+    "username": "JNPiKA",
+    "password": "1d6sh0q6",
+    "Role": "Security",
+    "attendance": [
+        {
+            "arrival": "Fri Mar 03 2023 22:19:34 GMT+0200 (Eastern European Standard Time)",
+            "departure": ""
+        }
+    ]
+},
+{
+    "firstname": "maha",
+    "lastname": "Ahmed",
+    "email": "maha.ahmed.anees@gmail.com",
+    "address": "w19street",
+    "age": "",
+    "username": "y01bvh",
+    "password": "n4ya1pta",
+    "Role": "Employee",
+    "attendance": [
+        {
+            "arrival": "Fri Mar 03 2023 22:18:26 GMT+0200 (Eastern European Standard Time)",
+            "departure": "Fri Mar 03 2023 22:18:32 GMT+0200 (Eastern European Standard Time)"
+        }
+    ]
 }
+]

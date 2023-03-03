@@ -4,7 +4,13 @@ users = JSON.parse(localStorage.getItem('Users')) || [];
 if (users.length === 0) {
     fetch('./data.json')
         .then((response) => response.json())
-        .then((json) => { users.push(json); localStorage.setItem('Users', JSON.stringify(users)); });
+        .then((json) => {
+            json.forEach(element => {
+                users.push(element);
+
+            });
+            localStorage.setItem('Users', JSON.stringify(users));
+        });
 }
 function currentTimestamp() {
     console.log(new Date());
