@@ -3,9 +3,9 @@ currentTimestamp();
 GetNumberofRequests();
 setInterval(currentTimestamp, 60000);
 setInterval(GetNumberofRequests, 20000);
-// sendMail("saloma", "salma.ahmed.anees@gmail.com", 'Test Subject', 'Test Message')
-
+var AllEmpshown = true;
 var isTableshown = false;
+AllEmployeeTable();
 function currentTimestamp() {
     let date = new Date();
     const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
@@ -23,13 +23,12 @@ function GetNumberofRequests() {
 }
 function BuildTableofRequests() {
     if (!isTableshown) {
-        let table = document.getElementsByTagName("table")[0];
-        document.getElementsByClassName("RegisterReq")[0].style.display="flex";
-        document.getElementsByClassName("AllEmp")[0].style.display="none";
-        document.getElementsByClassName("LateReport")[0].style.display="none";
-        document.getElementsByClassName("ExcuseReport")[0].style.display="none";
-        document.getElementsByClassName("EmpBrief")[0].style.display="none";
-
+        let table = document.getElementById("ReqTable");
+        document.getElementsByClassName("RegisterReq")[0].style.display = "flex";
+        document.getElementsByClassName("AllEmp")[0].style.display = "none";
+        document.getElementsByClassName("LateReport")[0].style.display = "none";
+        document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
+        document.getElementsByClassName("EmpBrief")[0].style.display = "none";
         let Employees = JSON.parse(localStorage.getItem('Requests')) || [];
         Employees.forEach(element => {
             let row = table.insertRow(-1);
@@ -37,7 +36,7 @@ function BuildTableofRequests() {
             let c2 = row.insertCell(1);
             let c3 = row.insertCell(2);
             let c4 = row.insertCell(3);
-            flelement = document.createElement("h2");
+            let flelement = document.createElement("h2");
             flelement.innerText = "Full Name: ";
             flelement.innerText += element['firstname'] + " " + element["lastname"];
             emailelment = document.createElement("h4");
@@ -128,7 +127,7 @@ function Approve(btn) {
     approvdEmp.username = uname;
     approvdEmp.password = pass;
     approvdEmp.Role = tmp;
-    approvdEmp.attendance=[];
+    approvdEmp.attendance = [];
     users.push(approvdEmp);
     sendMail(approvdEmp['email'], 'Congrats you have been accepted',
         `<b>your username:</b>${uname}<br>
@@ -144,7 +143,108 @@ function Reject(btn) {
     RejectedEmp = idx == 0 ? Req.shift() : Req.splice(idx, idx, 1);
     localStorage.setItem('Requests', JSON.stringify(Req));
     sendMail(RejectedEmp['email'], 'Sorry you\'rn\'t accepted',
-    `Sorry you\'rn\'t accepted
+        `Sorry you\'rn\'t accepted
     Best Wishes \n<br>
     Salma,Shrouk,Maha`)
 }
+function AllEmployeeTable() {
+    let table = document.getElementById("FullEmptble");
+    document.getElementsByClassName("RegisterReq")[0].style.display = "none";
+    document.getElementsByClassName("AllEmp")[0].style.display = "block";
+    document.getElementsByClassName("FullReport")[0].style.display = "none";
+    document.getElementsByClassName("LateReport")[0].style.display = "none";
+    document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
+    document.getElementsByClassName("EmpBrief")[0].style.display = "none";
+    document.getElementsByTagName("i")[0].disabled = false;
+    isTableshown = false;
+    users = JSON.parse(localStorage.getItem('Users')) || [];
+    if (AllEmpshown) {
+        users.forEach((item) => {
+            let row = table.insertRow(-1);
+            let c1 = row.insertCell(0);
+            let c2 = row.insertCell(1);
+            if (item.Role !== "Admin") {
+                console.log(new Date(item.attendance[item.attendance.length - 1].arrival).getDate());
+                day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
+                month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
+                let flelement = document.createElement("h2");
+                flelement.innerText = "Full Name: ";
+                flelement.innerText += item.firstname + " " + item.lastname;
+                let usernameelment = document.createElement("h4");
+                usernameelment.innerText = "username: ";
+                usernameelment.innerText += item.username;
+                c1.appendChild(flelement)
+                c1.appendChild(usernameelment)
+                if (day == new Date().getDate() && month == new Date().getMonth()) {
+                    if (item.attendance[item.attendance.length - 1].departure === '') {
+                        c2.innerHTML = `<h2 id="present">Present</h2>`;
+                    } else {
+                        c2.innerHTML = `<h2 id="left">left</h2>`;
+                    }
+
+                } else {
+                    c2.innerHTML = `<h2 id="absent">Absent</h2>`;
+                }
+            }
+        })
+        AllEmpshown = false;
+    }
+}
+function LateEmp() {
+    //number of lates this month
+    document.getElementsByClassName("RegisterReq")[0].style.display = "none";
+    document.getElementsByClassName("AllEmp")[0].style.display = "none";
+    document.getElementsByClassName("FullReport")[0].style.display = "none";
+    document.getElementsByClassName("LateReport")[0].style.display = "block";
+    document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
+    document.getElementsByClassName("EmpBrief")[0].style.display = "none";
+    document.getElementsByTagName("i")[0].disabled = false;
+    isTableshown = false;
+    AllEmpshown = false;
+    users = JSON.parse(localStorage.getItem('Users')) || [];
+    latearray = [];
+    globalnumberoflates = 0;
+    users.forEach((user) => {
+        console.log(user.firstname);
+        usAttend = user.attendance;
+        Numberoflatesperuser = 0;
+        usAttend.forEach((obj) => {
+            if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
+                currentdate = new Date(new Date().getFullYear(),
+                    new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
+                arrival = new Date(obj.arrival).setSeconds(0, 0);
+                let diff = msToTime(Math.abs(currentdate - arrival));
+                let diffh = diff.split(":")[0];
+                let diffm = diff.split(":")[1];
+                if (diffh === "00") {
+                    //he can have minimum 10 minutes late
+                    if (Number(diffm) > 10) {
+                        Numberoflatesperuser += 1;
+                        globalnumberoflates += 1;
+                    }
+
+                } else {
+                    Numberoflatesperuser += 1;
+                    globalnumberoflates += 1;
+                }
+            }
+        })
+        // console.log(Numberoflatesperuser);
+        latearray.push(Numberoflatesperuser);
+    })
+    //late today precentage
+}
+//uility function 
+function msToTime(duration) {
+    var milliseconds = Math.floor((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+}
+
