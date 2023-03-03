@@ -383,6 +383,71 @@ function FullReport() {
                 }
             }
         });
+        BuildTableoflates();
         fullreport = true;
     }
+
+}
+//utility function
+function BuildTableoflates() {
+    let table = document.getElementById("details");
+    users = JSON.parse(localStorage.getItem('Users')) || [];
+
+    users.forEach((item) => {
+
+        if (item.Role !== "Admin") {
+            let row = table.insertRow(-1);
+            let c1 = row.insertCell(0);
+            let c2 = row.insertCell(1);
+            let c3 = row.insertCell(2);
+            let c4 = row.insertCell(3);
+            if (item.Role !== "Admin") {
+                usAttend = item.attendance;
+                Numberoflatesperuser = 0;
+                numberofexcuese = 0;
+                usAttend.forEach((obj) => {
+                    if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
+                        currentdate = new Date(new Date().getFullYear(),
+                            new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
+                        arrival = new Date(obj.arrival).setSeconds(0, 0);
+                        let diff = msToTime(Math.abs(currentdate - arrival));
+                        let diffh = diff.split(":")[0];
+                        let diffm = diff.split(":")[1];
+                        if (diffh === "00") {
+                            //he can have minimum 10 minutes late
+                            if (Number(diffm) > 10) {
+                                Numberoflatesperuser += 1;
+                            }
+                        } else {
+                            Numberoflatesperuser += 1;
+                        }
+                        departure = new Date(obj.departure).setSeconds(0, 0);
+                        diff = msToTime(Math.abs(departure - arrival));
+                        if (Number(diffh) < 8) {
+                            numberofexcuese += 1;
+                        }
+                    }
+                })
+                day = new Date(item.attendance[item.attendance.length - 1].arrival).getDate();
+                month = new Date(item.attendance[item.attendance.length - 1].arrival).getMonth();
+                let flelement = document.createElement("h2");
+                flelement.innerText = "Full Name: ";
+                flelement.innerText += item.firstname + " " + item.lastname;
+                c1.appendChild(flelement)
+                if (day == new Date().getDate() && month == new Date().getMonth()) {
+                    if (item.attendance[item.attendance.length - 1].departure === '') {
+                        c2.innerHTML = `<h2 id="present">Present</h2>`;
+                    } else {
+                        c2.innerHTML = `<h2 id="left">left</h2>`;
+                    }
+
+                } else {
+                    c2.innerHTML = `<h2 id="absent">Absent</h2>`;
+                }
+                c3.innerHTML = `<h2 >${Numberoflatesperuser}</h2>`
+                c4.innerHTML = `<h2 >${numberofexcuese}</h2>`
+
+            }
+        }
+    })
 }

@@ -108,6 +108,16 @@ tr,td{
     color: rgb(0, 0, 63);
 
 }
+.FullReport
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1vw 1vh;
+    border: 2px solid black;
+    border-radius: 15px;
+    color: rgb(0, 0, 63);
+}
 #excusesTable{
     color: #000;
 }
