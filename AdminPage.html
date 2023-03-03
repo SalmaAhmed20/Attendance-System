@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="./js/smtp.js"></script>
     <script src="./js/Adminjs.js" defer></script>
+    <script src="./js/Excusejs.js" defer></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
                 <a id="menu__link3" href="#" onclick="LateEmp()">Late Reports</a>
             </li>
             <li class="menu__item">
-                <a id="menu__link4" href="#">Excuse Reports</a>
+                <a id="menu__link4" href="#" onclick="excuses()">Excuse Reports</a>
             </li>
             <li class="menu__item">
                 <a id="menu__link5" href="#">Employee Brief</a>
@@ -71,6 +72,14 @@
 
         </div>
         <div class="ExcuseReport" style="display: none;">
+            <table id="excusesTable">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Number Of Excuses</th>
+                    <th>Date</th>
+                </tr>
+                
+            </table>
         </div>
         <div class="EmpBrief" style="display: none;">
         </div>
