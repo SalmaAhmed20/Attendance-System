@@ -38,6 +38,7 @@ function displayExcusesTable(){
                 td1.innerText = users[x]["firstname"]+" "+users[x]["lastname"];
                 var td2 = document.createElement("td");
                 td2.innerText = users[x]["noOfExcuses"];
+                console.log(users[x]["noOfExcuses"]);
                 var td3 = document.createElement("td");
                 td3.innerHTML="<p>";
                 for(var j=0; j<users[x]["attendance"].length; j++){
