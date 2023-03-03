@@ -4,6 +4,7 @@ GetNumberofRequests();
 setInterval(currentTimestamp, 60000);
 setInterval(GetNumberofRequests, 20000);
 var AllEmpshown = true;
+var lateReportshown=false;
 var isTableshown = false;
 AllEmployeeTable();
 function currentTimestamp() {
@@ -157,6 +158,7 @@ function AllEmployeeTable() {
     document.getElementsByClassName("EmpBrief")[0].style.display = "none";
     document.getElementsByTagName("i")[0].disabled = false;
     isTableshown = false;
+    lateReportshown=false;
     users = JSON.parse(localStorage.getItem('Users')) || [];
     if (AllEmpshown) {
         users.forEach((item) => {
@@ -195,7 +197,7 @@ function LateEmp() {
     document.getElementsByClassName("RegisterReq")[0].style.display = "none";
     document.getElementsByClassName("AllEmp")[0].style.display = "none";
     document.getElementsByClassName("FullReport")[0].style.display = "none";
-    document.getElementsByClassName("LateReport")[0].style.display = "block";
+    document.getElementsByClassName("LateReport")[0].style.display = "flex";
     document.getElementsByClassName("ExcuseReport")[0].style.display = "none";
     document.getElementsByClassName("EmpBrief")[0].style.display = "none";
     document.getElementsByTagName("i")[0].disabled = false;
@@ -204,35 +206,84 @@ function LateEmp() {
     users = JSON.parse(localStorage.getItem('Users')) || [];
     latearray = [];
     globalnumberoflates = 0;
-    users.forEach((user) => {
-        console.log(user.firstname);
-        usAttend = user.attendance;
-        Numberoflatesperuser = 0;
-        usAttend.forEach((obj) => {
-            if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
-                currentdate = new Date(new Date().getFullYear(),
-                    new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
-                arrival = new Date(obj.arrival).setSeconds(0, 0);
-                let diff = msToTime(Math.abs(currentdate - arrival));
-                let diffh = diff.split(":")[0];
-                let diffm = diff.split(":")[1];
-                if (diffh === "00") {
-                    //he can have minimum 10 minutes late
-                    if (Number(diffm) > 10) {
+    if (!lateReportshown) {
+        document.getElementById("numberoflate").innerText="Number of late this month:"
+        document.getElementById("mostlatestemp").innerText="The Most Employee has lates: "
+        users.forEach((user) => {
+            // console.log(user.firstname);
+            usAttend = user.attendance;
+            Numberoflatesperuser = 0;
+            usAttend.forEach((obj) => {
+                if (new Date(obj.arrival).getMonth() == new Date().getMonth()) {
+                    currentdate = new Date(new Date().getFullYear(),
+                        new Date().getMonth(), new Date(obj.arrival).getDate(), 8, 30);
+                    arrival = new Date(obj.arrival).setSeconds(0, 0);
+                    let diff = msToTime(Math.abs(currentdate - arrival));
+                    let diffh = diff.split(":")[0];
+                    let diffm = diff.split(":")[1];
+                    if (diffh === "00") {
+                        //he can have minimum 10 minutes late
+                        if (Number(diffm) > 10) {
+                            Numberoflatesperuser += 1;
+                            globalnumberoflates += 1;
+                        }
+
+                    } else {
                         Numberoflatesperuser += 1;
                         globalnumberoflates += 1;
                     }
-
-                } else {
-                    Numberoflatesperuser += 1;
-                    globalnumberoflates += 1;
+                }
+            })
+            // console.log(Numberoflatesperuser);
+            latearray.push(Numberoflatesperuser);
+        })
+        //late today precentage
+        Numberoflates = 0;
+        users.forEach((user) => {
+            usAttend = user.attendance;
+            usAttend.forEach((obj) => {
+                if (new Date(obj.arrival).getMonth() == new Date().getMonth() && new Date(obj.arrival).getDate() == new Date().getDate()) {
+                    currentdate = new Date(new Date().getFullYear(),
+                        new Date().getMonth(), new Date().getDate(), 8, 30);
+                    arrival = new Date(obj.arrival).setSeconds(0, 0);
+                    let diff = msToTime(Math.abs(currentdate - arrival));
+                    let diffh = diff.split(":")[0];
+                    let diffm = diff.split(":")[1];
+                    if (diffh === "00") {
+                        if (Number(diffm) > 10) {
+                            Numberoflates += 1;
+                        }
+                    } else {
+                        Numberoflates += 1
+                    }
+                }
+            })
+        })
+        let percentage = (Numberoflates / users.length) * 100
+        var xValues = ["Late", "In Time"];
+        var yValues = [percentage, percentage - 100];
+        var barColors = ["#b91d47", "#00aba9"];
+        new Chart("lateChart", {
+            type: "pie",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Precentage of late today" + new Date().getDate() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getFullYear()
                 }
             }
-        })
-        // console.log(Numberoflatesperuser);
-        latearray.push(Numberoflatesperuser);
-    })
-    //late today precentage
+        });
+        document.getElementById("numberoflate").innerText += " " + globalnumberoflates;
+        let result = latearray.indexOf(Math.max(...latearray));
+        document.getElementById("mostlatestemp").innerText += " " + users[result].firstname + " " + users[result].lastname + " " + Math.max(...latearray) + " lates";
+        lateReportshown = true;
+    }
 }
 //uility function 
 function msToTime(duration) {
