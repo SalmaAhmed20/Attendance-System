@@ -2,7 +2,7 @@ function excuses(){
     currentDate = new Date();
     users = JSON.parse(localStorage.getItem('Users')) || [];
     //get current month excuses
-    for(var x=0;x<users.length;x++){
+    for(var x=1;x<users.length;x++){
         for(var j=0;j<users[x]["attendance"].length;j++){
             users[x]["attendance"] = users[x]["attendance"].filter(function(att){
                 arrivalTime = new Date(att.arrival);
@@ -31,7 +31,7 @@ function displayExcusesTable(){
     document.getElementsByClassName("ExcuseReport")[0].style.display = "flex";
     document.getElementsByClassName("EmpBrief")[0].style.display = "none";
     if(excusesTable.children.length < 2){
-        for(var x=0; x<users.length;x++){
+        for(var x=1; x<users.length;x++){
             var row = document.createElement("tr");
             var td1 = document.createElement("td");
             td1.innerText = users[x]["firstname"]+" "+users[x]["lastname"];
